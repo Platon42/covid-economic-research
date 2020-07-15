@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class GetSpendingData {
+public class GetCompareBySectorData {
     private Date startFromPeriod;
     private Date endFromPeriod;
     private Date startToPeriod;

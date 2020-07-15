@@ -1,8 +1,8 @@
 package ru.levelup.covid19.covideconomicresearch.service.spending;
 
-import ru.levelup.covid19.covideconomicresearch.dto.spending.DataSpendingProvider;
-import ru.levelup.covid19.covideconomicresearch.dto.spending.GetSpendingData;
+import ru.levelup.covid19.covideconomicresearch.dto.spending.res.CompareEconomicSector;
+import ru.levelup.covid19.covideconomicresearch.dto.spending.GetCompareBySectorData;
 
 public interface SpendingService {
-    public DataSpendingProvider getSpendingData (GetSpendingData getSpendingData);
+    public CompareEconomicSector getSpendingData (GetCompareBySectorData getCompareBySectorData);
 }

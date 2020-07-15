@@ -2,11 +2,10 @@ package ru.levelup.covid19.covideconomicresearch.service.spending;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.levelup.covid19.covideconomicresearch.dto.spending.DataSpendingProvider;
-import ru.levelup.covid19.covideconomicresearch.dto.spending.GetSpendingData;
+import ru.levelup.covid19.covideconomicresearch.dto.spending.res.CompareEconomicSector;
+import ru.levelup.covid19.covideconomicresearch.dto.spending.GetCompareBySectorData;
 
 @Service
 public class SpendingServiceImpl implements SpendingService {
@@ -16,24 +15,24 @@ public class SpendingServiceImpl implements SpendingService {
     @Value("${service.spending.url}")
     private String serviceSpendingUrl;
 
-    public DataSpendingProvider getSpendingData (GetSpendingData getSpendingData) {
-        if (!isValidDatePeriod(getSpendingData))
+    public CompareEconomicSector getSpendingData (GetCompareBySectorData getCompareBySectorData) {
+        if (!isValidDatePeriod(getCompareBySectorData))
             return null; // не классно, нужно писать кастомные исключения
 
-        DataSpendingProvider dataSpendingProvider =
+        CompareEconomicSector compareEconomicSector =
                 restTemplate.postForObject(serviceSpendingUrl,
-                getSpendingData,
-                DataSpendingProvider.class,
+                        getCompareBySectorData,
+                CompareEconomicSector.class,
                 1);
-        return dataSpendingProvider;
+        return compareEconomicSector;
 
     }
 
-    private boolean isValidDatePeriod(GetSpendingData getSpendingData) {
-        if (!getSpendingData.getStartFromPeriod().before(getSpendingData.getEndToPeriod())) {
+    private boolean isValidDatePeriod(GetCompareBySectorData getCompareBySectorData) {
+        if (!getCompareBySectorData.getStartFromPeriod().before(getCompareBySectorData.getEndToPeriod())) {
             return false;
         }
-        if (!getSpendingData.getEndFromPeriod().before(getSpendingData.getStartToPeriod())) {
+        if (!getCompareBySectorData.getEndFromPeriod().before(getCompareBySectorData.getStartToPeriod())) {
             return false;
         }
         return true;
