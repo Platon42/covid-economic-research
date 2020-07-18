@@ -4,5 +4,5 @@ import ru.levelup.covid19.covideconomicresearch.dto.spending.res.CompareEconomic
 import ru.levelup.covid19.covideconomicresearch.dto.spending.GetCompareBySectorData;
 
 public interface SpendingService {
-    public CompareEconomicSector getSpendingData (GetCompareBySectorData getCompareBySectorData);
+    CompareEconomicSector getSpendingData (GetCompareBySectorData getCompareBySectorData);
 }
