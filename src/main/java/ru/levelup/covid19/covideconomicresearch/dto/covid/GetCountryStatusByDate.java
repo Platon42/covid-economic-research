@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class GetCountryLiveByDate {
+public class GetCountryStatusByDate {
     private String countryName;
+    private String status;
     private String dateFrom;
     private String dateTo;
 }

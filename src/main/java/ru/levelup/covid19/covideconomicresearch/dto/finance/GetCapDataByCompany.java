@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetCapDataByCompany {
     private String providerName;
-    private String startPeriod;
-    private String endPeriod;
-    private String companyName;
+    private String period1;
+    private String period2;
+    private String companySymbol;
 }

@@ -6,9 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.levelup.covid19.covideconomicresearch.dto.covid.GetCountryLiveByDate;
-import ru.levelup.covid19.covideconomicresearch.dto.covid.res.CountryCases;
-import ru.levelup.covid19.covideconomicresearch.dto.finance.res.CapFinanceResult;
+import ru.levelup.covid19.covideconomicresearch.dto.covid.GetCountryStatusByDate;
+import ru.levelup.covid19.covideconomicresearch.dto.covid.res.CountryCase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,19 +22,20 @@ public class CovidServiceImpl implements CovidService {
     @Value("${service.covid.country.live}")
     private String serviceCovidLive;
 
-    public List<CountryCases> getCases(GetCountryLiveByDate getCountryLiveByDate) {
+    public List<CountryCase> getCases(GetCountryStatusByDate getCountryStatusByDate) {
 
         UriComponentsBuilder covidRequestUri =
                 UriComponentsBuilder
                         .fromUriString(serviceCovidLive)
-                        .queryParam("Country", getCountryLiveByDate.getCountryName())
-                        .queryParam("dateFrom", getCountryLiveByDate.getDateFrom())
-                        .queryParam("dateTo", getCountryLiveByDate.getDateTo());
+                        .queryParam("country", getCountryStatusByDate.getCountryName())
+                        .queryParam("status", getCountryStatusByDate.getStatus())
+                        .queryParam("dateFrom", getCountryStatusByDate.getDateFrom())
+                        .queryParam("dateTo", getCountryStatusByDate.getDateTo());
 
 
-        ResponseEntity<CountryCases[]> countryCasesList = restTemplate.getForEntity(covidRequestUri.toUriString(),
-                CountryCases[].class, 1);
-        List<CountryCases> countryCases = Arrays.asList(Objects.requireNonNull(countryCasesList.getBody()));
+        ResponseEntity<CountryCase[]> countryCasesList = restTemplate.getForEntity(covidRequestUri.toUriString(),
+                CountryCase[].class, 1);
+        List<CountryCase> countryCases = Arrays.asList(Objects.requireNonNull(countryCasesList.getBody()));
         return countryCases;
     }
 }
